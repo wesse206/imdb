@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -12,10 +12,10 @@ export interface Movies {
 @Injectable()
 export class MovieService {
   constructor(private http: HttpClient) { }
-  apiUrl = 'https://imdb-api.com/API/AdvancedSearch/k_9qsnleq1/?title=Avengers'
+  apiUrl = 'https://imdb-api.com/API/AdvancedSearch/k_9qsnleq1/?title='
 
-  getMovies() {
-    return this.http.get<Movies>(this.apiUrl)
+  getMovies(query: string) {
+    return this.http.get<Movies>(this.apiUrl + query)
   }
 }
 
@@ -25,24 +25,22 @@ export class MovieService {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   movies: Movies | undefined
 
   constructor(private movieService: MovieService) { }
 
-  getMovies() {
-    this.movieService.getMovies()
+  @ViewChild('search') search !: ElementRef;
+
+  getMovies(query: string) {  
+    this.movieService.getMovies(query)
       .subscribe((data: Movies) => {
         this.movies = {
         results: data.results
       }
-        console.log(JSON.stringify(this.movies))}
-      )
-    
-  }
-
-  ngOnInit() {
-    this.getMovies()
+        
+        
+  })
     
   }
   
