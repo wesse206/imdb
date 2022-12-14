@@ -1,4 +1,5 @@
 <head>
+  <title>IMDB Lite</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -16,8 +17,8 @@
       </tr>
 
       <tr *ngFor="let movie of movies.results">
-        <td>
-          <img src="{{movie.image}}" width="100" />
+        <td width="100">
+          <img src="{{movie.image}}" width="100" height="148" />
         </td>
         <td>
           {{ movie.title }}

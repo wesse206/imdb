@@ -12,7 +12,7 @@ export interface Movies {
 @Injectable()
 export class MovieService {
   constructor(private http: HttpClient) { }
-  apiUrl = 'https://imdb-api.com/API/AdvancedSearch/k_9qsnleq1/?title='
+  apiUrl = 'https://imdb-api.com/API/AdvancedSearch/k_9qsnleq1/?count=5&title='
 
   getMovies(query: string) {
     return this.http.get<Movies>(this.apiUrl + query)
